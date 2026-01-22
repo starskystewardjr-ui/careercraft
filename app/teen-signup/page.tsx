@@ -1,23 +1,38 @@
+"use client";
+
 export default function TeenSignup() {
+  async function handleSubmit(e: any) {
+    e.preventDefault();
+
+    const form = e.target;
+    const data = new FormData(form);
+
+    const res = await fetch("/api/teens", {
+      method: "POST",
+      body: data,
+    });
+
+    const json = await res.json();
+    alert(JSON.stringify(json));
+  }
+
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h1>Teen Signup</h1>
 
-      <form method="post" action="/api/teens">
-        <input name="name" placeholder="Full Name" required />
-        <br />
+      <input name="name" placeholder="Name" required />
+      <br />
 
-        <input name="age" placeholder="Age" required />
-        <br />
+      <input name="age" placeholder="Age" required />
+      <br />
 
-        <input name="city" placeholder="City" required />
-        <br />
+      <input name="city" placeholder="City" required />
+      <br />
 
-        <input name="skills" placeholder="Work interests" required />
-        <br />
+      <input name="skills" placeholder="Skills" required />
+      <br />
 
-        <button type="submit">Create Profile</button>
-      </form>
-    </div>
+      <button type="submit">Submit</button>
+    </form>
   );
 }
